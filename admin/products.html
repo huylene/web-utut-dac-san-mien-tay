@@ -1,0 +1,221 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Quản Lý Đặc Sản — Út Út Admin | utut.vn</title>
+  <link rel="icon" type="image/png" href="../assets/images/logo-utut.png" />
+  
+  <link rel="stylesheet" href="../assets/css/tokens.css" />
+  <link rel="stylesheet" href="../assets/css/global.css" />
+  <link rel="stylesheet" href="../assets/css/components.css" />
+  <link rel="stylesheet" href="../assets/css/pages.css" />
+</head>
+<body>
+
+  <div class="admin-layout">
+    <!-- Sidebar -->
+    <aside class="admin-sidebar">
+      <div class="admin-sidebar-header">
+        <a href="index.html" style="display: flex; align-items: center; gap: 10px; color: #FFFFFF;">
+          <img src="../assets/images/logo-utut.png" alt="Út Út" style="height: 36px; filter: brightness(0) invert(1);" />
+          <div>
+            <div style="font-weight: bold; font-size: 1.1rem; color: var(--color-primary);">Út Út Admin</div>
+            <div style="font-size: 0.75rem; color: #8C847D;">Đặc sản miền Tây</div>
+          </div>
+        </a>
+      </div>
+
+      <ul class="admin-nav">
+        <li class="admin-nav-item">
+          <a href="index.html" class="admin-nav-link">📊 Tổng quan (Dashboard)</a>
+        </li>
+        <li class="admin-nav-item">
+          <a href="orders.html" class="admin-nav-link">📦 Quản lý đơn hàng</a>
+        </li>
+        <li class="admin-nav-item">
+          <a href="products.html" class="admin-nav-link active">🐟 Quản lý đặc sản</a>
+        </li>
+        <li class="admin-nav-item">
+          <a href="reviews.html" class="admin-nav-link">✍️ Duyệt đánh giá</a>
+        </li>
+        <li class="admin-nav-item">
+          <a href="supabase.html" class="admin-nav-link">⚡ Quản lý Supabase & Tài khoản</a>
+        </li>
+        <li class="admin-nav-item" style="margin-top: var(--space-6); border-top: 1px solid rgba(255,255,255,0.1); padding-top: var(--space-4);">
+          <a href="../index.html" target="_blank" class="admin-nav-link">🌐 Xem Website khách hàng</a>
+        </li>
+      </ul>
+
+      <div class="admin-sidebar-footer">
+        <div>Hệ thống vận hành Supabase PostgreSQL</div>
+      </div>
+    </aside>
+
+    <!-- Main Content -->
+    <div class="admin-main">
+      <header class="admin-header">
+        <h2 style="font-size: var(--font-size-lg); margin: 0;">Danh Sách Đặc Sản Trong Kho</h2>
+        <div style="display: flex; align-items: center; gap: var(--space-4);">
+          <span style="font-size: var(--font-size-sm); color: var(--color-text-muted);" id="admin-user-email">admin@utut.vn</span>
+          <button type="button" class="btn btn-outline btn-sm" id="admin-logout-btn">Đăng xuất</button>
+        </div>
+      </header>
+
+      <div class="admin-content">
+        <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: var(--space-6); flex-wrap: wrap; gap: var(--space-3);">
+          <p style="margin: 0; color: var(--color-text-muted);">Thêm mới hoặc điều chỉnh giá, số lượng tồn kho và trạng thái bày bán.</p>
+          <div style="display: flex; gap: var(--space-3);">
+            <button type="button" class="btn btn-outline" id="export-products-csv-btn">
+              📥 Xuất CSV
+            </button>
+            <button type="button" class="btn btn-primary" id="add-product-btn">
+              + Thêm đặc sản mới
+            </button>
+          </div>
+        </div>
+
+        <div class="data-table-wrap">
+          <table class="data-table">
+            <thead>
+              <tr>
+                <th>Ảnh</th>
+                <th>Tên sản phẩm</th>
+                <th>Giá bán</th>
+                <th>Tồn kho</th>
+                <th>Nổi bật</th>
+                <th>Kinh doanh</th>
+                <th>Thao tác</th>
+              </tr>
+            </thead>
+            <tbody id="products-tbody">
+              <tr><td colspan="7" style="text-align:center; padding: 20px;"><div class="spinner"></div></td></tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Modal Thêm/Sửa Sản Phẩm -->
+  <div class="modal-backdrop" id="product-modal">
+    <div class="modal-dialog" style="max-width: 720px;">
+      <div class="modal-header">
+        <div>
+          <h3 class="modal-title" id="prod-modal-title" style="font-weight: 700; color: var(--color-text-main);">Chỉnh sửa đặc sản</h3>
+          <p style="margin: 2px 0 0 0; font-size: var(--font-size-xs); color: var(--color-text-muted);">Cập nhật thông tin, giá bán và hình ảnh hiển thị trên cửa hàng</p>
+        </div>
+        <button type="button" class="modal-close" aria-label="Đóng">&times;</button>
+      </div>
+
+      <form id="product-form" style="display: flex; flex-direction: column; flex: 1; min-height: 0; overflow: hidden;">
+        <div class="modal-body" style="padding: var(--space-5) var(--space-6); overflow-y: auto; flex: 1;">
+          <input type="hidden" id="prod-id" />
+
+          <!-- Hàng 1: Tên & Slug -->
+          <div style="display: grid; grid-template-columns: 1.4fr 1fr; gap: var(--space-4);">
+            <div class="form-group" style="margin-bottom: var(--space-3);">
+              <label class="form-label" for="prod-name">Tên đặc sản <span class="required">*</span></label>
+              <input type="text" id="prod-name" class="form-control" required placeholder="Ví dụ: Khô Cá Lóc Đồng Miền Tây" />
+            </div>
+
+            <div class="form-group" style="margin-bottom: var(--space-3);">
+              <label class="form-label" for="prod-slug">Đường dẫn tĩnh (Slug)</label>
+              <input type="text" id="prod-slug" class="form-control" placeholder="kho-ca-loc-dong" />
+            </div>
+          </div>
+
+          <!-- Hàng 2: Giá bán & Giá so sánh -->
+          <div style="display: grid; grid-template-columns: 1fr 1fr; gap: var(--space-4);">
+            <div class="form-group" style="margin-bottom: var(--space-3);">
+              <label class="form-label" for="prod-price">Giá bán thực tế (VNĐ) <span class="required">*</span></label>
+              <input type="number" id="prod-price" class="form-control" min="0" step="1000" required placeholder="160000" />
+            </div>
+            <div class="form-group" style="margin-bottom: var(--space-3);">
+              <label class="form-label" for="prod-compare-price">Giá gốc so sánh (VNĐ)</label>
+              <input type="number" id="prod-compare-price" class="form-control" min="0" step="1000" placeholder="190000" />
+            </div>
+          </div>
+
+          <!-- Hàng 3: Tồn kho & Chọn ảnh -->
+          <div style="display: grid; grid-template-columns: 1fr 2fr; gap: var(--space-4);">
+            <div class="form-group" style="margin-bottom: var(--space-3);">
+              <label class="form-label" for="prod-stock">Tồn kho <span class="required">*</span></label>
+              <input type="number" id="prod-stock" class="form-control" min="0" value="20" required />
+            </div>
+            <div class="form-group" style="margin-bottom: var(--space-3);">
+              <label class="form-label" for="prod-image">Hình ảnh đặc sản</label>
+              <div style="display: flex; gap: var(--space-2);">
+                <input type="text" id="prod-image" class="form-control" placeholder="assets/images/... hoặc dán link web" />
+                <button type="button" class="btn btn-outline btn-sm" id="btn-browse-image" style="white-space: nowrap; padding: 0 12px; display: flex; align-items: center; gap: 4px;" title="Chọn file ảnh từ máy tính">
+                  <span>📁</span> <span>Tải ảnh</span>
+                </button>
+              </div>
+              <input type="file" id="prod-image-file" accept="image/png, image/jpeg, image/jpg, image/webp, image/gif" style="display: none;" />
+            </div>
+          </div>
+
+          <!-- Preview ảnh sản phẩm -->
+          <div id="prod-image-preview-wrap" style="display: flex; align-items: center; gap: 12px; margin-bottom: var(--space-3); padding: 8px 12px; background: var(--color-bg); border-radius: var(--radius-md); border: 1px dashed var(--color-border);">
+            <img id="prod-image-preview" src="../assets/images/logo-utut.png" alt="Xem trước" style="width: 44px; height: 44px; object-fit: cover; border-radius: 6px; border: 1px solid var(--color-border); background: #fff;" onerror="this.src='../assets/images/logo-utut.png'" />
+            <div style="font-size: var(--font-size-xs); color: var(--color-text-muted); flex: 1;">
+              <div style="font-weight: 600; color: var(--color-text-main);" id="prod-image-preview-title">Ảnh hiển thị</div>
+              <div style="font-size: 11px; color: #8C847D;" id="prod-image-preview-sub">Có thể dán link trực tiếp hoặc bấm "Tải ảnh" từ máy tính.</div>
+            </div>
+            <button type="button" class="btn btn-outline btn-sm" id="btn-clear-image" style="font-size: 11px; padding: 2px 8px; display: none;">Xoá ảnh</button>
+          </div>
+
+          <!-- Mô tả ngắn -->
+          <div class="form-group" style="margin-bottom: var(--space-3);">
+            <label class="form-label" for="prod-short-desc">Mô tả ngắn</label>
+            <input type="text" id="prod-short-desc" class="form-control" placeholder="Tóm tắt đặc sản trong 1-2 câu để hiển thị ngoài danh sách" />
+          </div>
+
+          <!-- Chi tiết & Hướng dẫn sử dụng -->
+          <div class="form-group" style="margin-bottom: var(--space-3);">
+            <label class="form-label" for="prod-desc">Nội dung chi tiết & Hướng dẫn sử dụng</label>
+            <textarea id="prod-desc" class="form-control" rows="2" style="resize: vertical; min-height: 56px;" placeholder="Xuất xứ, cách chế biến, hạn dùng..."></textarea>
+          </div>
+
+          <!-- Trạng thái nổi bật & kinh doanh -->
+          <div style="display: flex; gap: var(--space-4); margin-top: var(--space-2); background: #FAF8F5; padding: 10px 14px; border-radius: var(--radius-md); border: 1px solid var(--color-border); flex-wrap: wrap;">
+            <label class="form-check" style="cursor: pointer; display: flex; align-items: center; gap: 8px; margin: 0;">
+              <input type="checkbox" id="prod-featured" style="width: 18px; height: 18px; accent-color: var(--color-primary); cursor: pointer;" />
+              <span style="font-weight: 600; font-size: var(--font-size-sm); color: var(--color-text-main);">★ Đánh dấu món Nổi bật (Trang chủ)</span>
+            </label>
+            <label class="form-check" style="cursor: pointer; display: flex; align-items: center; gap: 8px; margin: 0;">
+              <input type="checkbox" id="prod-active" checked style="width: 18px; height: 18px; accent-color: var(--color-success); cursor: pointer;" />
+              <span style="font-weight: 600; font-size: var(--font-size-sm); color: var(--color-text-main);">✓ Đang kinh doanh (Mở bán)</span>
+            </label>
+          </div>
+        </div>
+
+        <!-- Thanh Footer ghim cố định luôn hiển thị rõ ràng -->
+        <div class="modal-footer" style="background: #FFFFFF; border-top: 1px solid var(--color-border); padding: 14px 24px; display: flex; justify-content: space-between; align-items: center; flex-shrink: 0; box-shadow: 0 -4px 12px rgba(0,0,0,0.04);">
+          <div style="font-size: var(--font-size-xs); color: var(--color-text-muted);">
+            Nhấn <strong>"Lưu sản phẩm"</strong> để hoàn tất cập nhật
+          </div>
+          <div style="display: flex; gap: var(--space-3);">
+            <button type="button" class="btn btn-outline" id="prod-cancel-btn" style="min-width: 90px;">
+              ✕ Hủy bỏ
+            </button>
+            <button type="submit" class="btn btn-primary" id="prod-save-btn" style="min-width: 150px; font-weight: 600; box-shadow: 0 2px 6px rgba(200,82,30,0.3);">
+              💾 Lưu sản phẩm
+            </button>
+          </div>
+        </div>
+      </form>
+    </div>
+  </div>
+
+  <script type="module">
+    import { checkAdminAuth } from '../assets/js/admin/admin-auth.js';
+    import { initAdminProductsPage } from '../assets/js/admin/admin-products.js';
+
+    const session = await checkAdminAuth();
+    if (session) {
+      initAdminProductsPage();
+    }
+  </script>
+</body>
+</html>

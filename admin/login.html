@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Đăng Nhập Quản Trị — Út Út | utut.vn</title>
+  <link rel="icon" type="image/png" href="../assets/images/logo-utut.png" />
+  
+  <link rel="stylesheet" href="../assets/css/tokens.css" />
+  <link rel="stylesheet" href="../assets/css/global.css" />
+  <link rel="stylesheet" href="../assets/css/components.css" />
+  <link rel="stylesheet" href="../assets/css/pages.css" />
+</head>
+<body style="background-color: #F4F1EA; min-height: 100vh; display: flex; align-items: center; justify-content: center; padding: 20px;">
+
+  <div style="background-color: #FFFFFF; border: 1px solid var(--color-border); border-radius: var(--radius-xl); padding: var(--space-8); max-width: 440px; width: 100%; box-shadow: var(--shadow-xl);">
+    <div style="text-align: center; margin-bottom: var(--space-6);">
+      <img src="../assets/images/logo-utut.png" alt="Út Út Logo" style="height: 56px; margin: 0 auto 12px auto;" />
+      <h2 style="font-size: var(--font-size-xl); margin-bottom: 4px;">Quản Trị Viên Út Út</h2>
+      <p style="font-size: var(--font-size-sm); color: var(--color-text-muted); margin: 0;">Đăng nhập hệ thống quản lý đơn hàng & sản phẩm</p>
+    </div>
+
+    <form id="admin-login-form" onsubmit="return false;">
+      <div class="form-group">
+        <label class="form-label" for="login-email">Email quản trị</label>
+        <input type="email" id="login-email" class="form-control" value="admin@utut.vn" placeholder="admin@utut.vn" required />
+      </div>
+
+      <div class="form-group">
+        <label class="form-label" for="login-password">Mật khẩu</label>
+        <input type="password" id="login-password" class="form-control" value="admin123" placeholder="••••••••" required />
+      </div>
+
+      <div style="background-color: var(--color-primary-light); padding: var(--space-3); border-radius: var(--radius-md); font-size: var(--font-size-xs); color: var(--color-primary); margin-bottom: var(--space-4); line-height: 1.5;">
+        ⚡ <strong>Đã cấu hình Supabase (ututvn_dacsanmientay)</strong><br>
+        • Tài khoản quản trị mặc định: <code>admin@utut.vn</code> | Mật khẩu: <code>admin123</code><br>
+        • Sau khi đăng nhập, vào mục <em>Quản lý Supabase & Tài khoản</em> để quản lý database.
+      </div>
+
+      <button type="button" id="login-submit-btn" class="btn btn-primary btn-block btn-lg">
+        Đăng Nhập Quản Trị
+      </button>
+
+      <div style="text-align: center; margin-top: var(--space-4);">
+        <a href="../index.html" style="font-size: var(--font-size-sm); color: var(--color-text-muted);">
+          ← Quay lại trang chủ website
+        </a>
+      </div>
+    </form>
+  </div>
+
+  <script type="module">
+    import { DataService } from '../assets/js/supabase-client.js';
+    import { checkAdminAuth } from '../assets/js/admin/admin-auth.js';
+    import { showToast } from '../assets/js/ui-utils.js';
+
+    const form = document.getElementById('admin-login-form');
+    const submitBtn = document.getElementById('login-submit-btn');
+
+    async function handleLogin() {
+      const email = document.getElementById('login-email').value.trim();
+      const password = document.getElementById('login-password').value;
+
+      if (!email || !password) {
+        showToast('Vui lòng nhập email và mật khẩu!', 'error');
+        return;
+      }
+
+      submitBtn.disabled = true;
+      submitBtn.textContent = 'Đang xác thực...';
+
+      try {
+        await DataService.adminLogin(email, password);
+        showToast('Đăng nhập thành công! Đang chuyển hướng...', 'success');
+        setTimeout(() => {
+          window.location.href = 'index.html';
+        }, 300);
+      } catch (err) {
+        showToast(err.message || 'Đăng nhập thất bại', 'error');
+        submitBtn.disabled = false;
+        submitBtn.textContent = 'Đăng Nhập Quản Trị';
+      }
+    }
+
+    // Gắn sự kiện click và submit ngay lập tức
+    submitBtn.addEventListener('click', handleLogin);
+    form.addEventListener('submit', (e) => {
+      e.preventDefault();
+      handleLogin();
+    });
+
+    // Hỗ trợ nhấn Enter trong ô mật khẩu
+    document.getElementById('login-password').addEventListener('keydown', (e) => {
+      if (e.key === 'Enter') {
+        e.preventDefault();
+        handleLogin();
+      }
+    });
+
+    // Kiểm tra session hiện có (chạy ngầm sau khi đã gắn event)
+    try {
+      checkAdminAuth().catch(() => {});
+    } catch (e) {}
+  </script>
+</body>
+</html>

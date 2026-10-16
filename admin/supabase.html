@@ -1,0 +1,191 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Quản Lý Supabase & Tài Khoản Admin — Út Út | utut.vn</title>
+  <link rel="icon" type="image/png" href="../assets/images/logo-utut.png" />
+  
+  <link rel="stylesheet" href="../assets/css/tokens.css" />
+  <link rel="stylesheet" href="../assets/css/global.css" />
+  <link rel="stylesheet" href="../assets/css/components.css" />
+  <link rel="stylesheet" href="../assets/css/pages.css" />
+</head>
+<body class="admin-body">
+
+  <div class="admin-layout">
+    <!-- Sidebar -->
+    <aside class="admin-sidebar">
+      <div class="admin-sidebar-header">
+        <a href="index.html" style="display: flex; align-items: center; gap: 10px; color: #FFFFFF;">
+          <img src="../assets/images/logo-utut.png" alt="Út Út" style="height: 36px; filter: brightness(0) invert(1);" />
+          <div>
+            <div style="font-weight: bold; font-size: 1.1rem; color: var(--color-primary);">Út Út Admin</div>
+            <div style="font-size: 0.75rem; color: #8C847D;">Đặc sản miền Tây</div>
+          </div>
+        </a>
+      </div>
+
+      <ul class="admin-nav">
+        <li class="admin-nav-item">
+          <a href="index.html" class="admin-nav-link">📊 Tổng quan (Dashboard)</a>
+        </li>
+        <li class="admin-nav-item">
+          <a href="orders.html" class="admin-nav-link">📦 Quản lý đơn hàng</a>
+        </li>
+        <li class="admin-nav-item">
+          <a href="products.html" class="admin-nav-link">🐟 Quản lý đặc sản</a>
+        </li>
+        <li class="admin-nav-item">
+          <a href="reviews.html" class="admin-nav-link">✍️ Duyệt đánh giá</a>
+        </li>
+        <li class="admin-nav-item">
+          <a href="supabase.html" class="admin-nav-link active">⚡ Quản lý Supabase & Tài khoản</a>
+        </li>
+        <li class="admin-nav-item" style="margin-top: var(--space-6); border-top: 1px solid rgba(255,255,255,0.1); padding-top: var(--space-4);">
+          <a href="../index.html" target="_blank" class="admin-nav-link">🌐 Xem Website khách hàng</a>
+        </li>
+      </ul>
+
+      <div class="admin-sidebar-footer">
+        <div>Hệ thống vận hành Supabase PostgreSQL</div>
+      </div>
+    </aside>
+
+    <!-- Main Content -->
+    <div class="admin-main">
+      <header class="admin-header">
+        <div style="display: flex; align-items: center; gap: var(--space-3);">
+          <span style="font-size: 1.5rem;">⚡</span>
+          <div>
+            <h2 style="font-size: var(--font-size-lg); margin: 0;">Quản Lý Kết Nối Supabase & Tài Khoản Admin</h2>
+            <div style="font-size: var(--font-size-xs); color: var(--color-text-muted);">Dự án: ututvn_dacsanmientay (jgdigejbpadlbqocueiz)</div>
+          </div>
+        </div>
+        <div style="display: flex; align-items: center; gap: var(--space-4);">
+          <span style="font-size: var(--font-size-sm); color: var(--color-text-muted);" id="admin-user-email">admin@utut.vn</span>
+          <button type="button" class="btn btn-outline btn-sm" id="admin-logout-btn">Đăng xuất</button>
+        </div>
+      </header>
+
+      <div class="admin-content">
+        <!-- 1. Trạng thái kết nối Supabase -->
+        <div style="background: #FFFFFF; border: 1px solid var(--color-border); border-radius: var(--radius-xl); padding: var(--space-6); margin-bottom: var(--space-6); box-shadow: var(--shadow-sm);">
+          <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: var(--space-4); flex-wrap: wrap; gap: var(--space-3);">
+            <div>
+              <h3 style="margin: 0; font-size: var(--font-size-lg); display: flex; align-items: center; gap: 8px;">
+                <span>🌐 Trạng Thái Kết Nối Supabase Cloud</span>
+                <span id="conn-badge" class="badge badge-pending">Đang kiểm tra...</span>
+              </h3>
+              <p style="margin: 4px 0 0 0; font-size: var(--font-size-sm); color: var(--color-text-muted);">
+                Kiểm tra thông số kỹ thuật và độ phản hồi của API Supabase
+              </p>
+            </div>
+            <button type="button" class="btn btn-primary btn-sm" id="btn-test-conn">
+              🔄 Kiểm Tra Kết Nối Ngay
+            </button>
+          </div>
+
+          <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: var(--space-4); margin-bottom: var(--space-4);">
+            <div style="background: var(--color-bg); padding: var(--space-4); border-radius: var(--radius-lg); border: 1px solid var(--color-border);">
+              <div style="font-size: var(--font-size-xs); color: var(--color-text-muted); text-transform: uppercase;">Project URL</div>
+              <div style="font-family: monospace; font-size: var(--font-size-sm); margin-top: 4px; word-break: break-all; color: var(--color-text-main);">https://jgdigejbpadlbqocueiz.supabase.co</div>
+            </div>
+            <div style="background: var(--color-bg); padding: var(--space-4); border-radius: var(--radius-lg); border: 1px solid var(--color-border);">
+              <div style="font-size: var(--font-size-xs); color: var(--color-text-muted); text-transform: uppercase;">Publishable Key</div>
+              <div style="font-family: monospace; font-size: var(--font-size-sm); margin-top: 4px; word-break: break-all; color: var(--color-text-main);">sb_publishable_Il8CbcnRuYDbxbzrfj-CCg_SZd8yCTh</div>
+            </div>
+            <div style="background: var(--color-bg); padding: var(--space-4); border-radius: var(--radius-lg); border: 1px solid var(--color-border);">
+              <div style="font-size: var(--font-size-xs); color: var(--color-text-muted); text-transform: uppercase;">Database Connection (PostgreSQL 5432)</div>
+              <div style="display: flex; align-items: center; justify-content: space-between; gap: 8px; margin-top: 4px;">
+                <span style="font-family: monospace; font-size: var(--font-size-xs); word-break: break-all; color: var(--color-text-muted);">db.jgdigejbpadlbqocueiz.supabase.co:5432</span>
+                <button type="button" class="copy-badge" id="btn-copy-dburl">Copy URI</button>
+              </div>
+            </div>
+          </div>
+
+          <div id="conn-details-box" style="display: none; background: #FAFDFB; border: 1px solid #D1FADF; padding: var(--space-4); border-radius: var(--radius-md); font-size: var(--font-size-sm);">
+            <!-- Kết quả kiểm tra động -->
+          </div>
+        </div>
+
+        <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(420px, 1fr)); gap: var(--space-6);">
+          <!-- 2. Quản lý Tài Khoản Admin Supabase -->
+          <div style="background: #FFFFFF; border: 1px solid var(--color-border); border-radius: var(--radius-xl); padding: var(--space-6); box-shadow: var(--shadow-sm);">
+            <h3 style="margin-top: 0; font-size: var(--font-size-lg); display: flex; align-items: center; gap: 8px;">
+              <span>👤 Quản Lý Tài Khoản Quản Trị Viên (Admin)</span>
+            </h3>
+            <p style="font-size: var(--font-size-sm); color: var(--color-text-muted); margin-bottom: var(--space-4);">
+              Tạo tài khoản quản trị mới trên Supabase Auth và tự động gán quyền <code>admin</code> vào bảng <code>profiles</code>.
+            </p>
+
+            <form id="create-admin-form" style="margin-bottom: var(--space-6);">
+              <div class="form-group">
+                <label class="form-label" for="new-admin-email">Email quản trị viên mới</label>
+                <input type="email" id="new-admin-email" class="form-control" placeholder="admin@utut.vn hoặc email cá nhân" required />
+              </div>
+              <div class="form-group">
+                <label class="form-label" for="new-admin-password">Mật khẩu (tối thiểu 6 ký tự)</label>
+                <input type="password" id="new-admin-password" class="form-control" placeholder="Nhập mật khẩu an toàn" minlength="6" required />
+              </div>
+              <button type="submit" id="btn-create-admin" class="btn btn-primary btn-block">
+                ➕ Tạo Tài Khoản Quản Trị Supabase
+              </button>
+            </form>
+
+            <div style="border-top: 1px solid var(--color-border); padding-top: var(--space-4);">
+              <h4 style="font-size: var(--font-size-base); margin: 0 0 var(--space-3) 0;">💡 Phân quyền quản trị viên bằng SQL</h4>
+              <p style="font-size: var(--font-size-xs); color: var(--color-text-muted); margin-bottom: var(--space-2);">
+                Nếu tạo user trực tiếp từ Supabase Auth Dashboard, chạy lệnh sau trong SQL Editor để cấp quyền:
+              </p>
+              <pre style="background: #2C2623; color: #FFFFFF; padding: var(--space-3); border-radius: var(--radius-md); font-size: 11px; overflow-x: auto;"><code>insert into public.profiles (user_id, role)
+values ('USER_UUID_O_SUPABASE', 'admin')
+on conflict (user_id) do update set role = 'admin';</code></pre>
+            </div>
+          </div>
+
+          <!-- 3. Quản lý Database & Đồng bộ dữ liệu -->
+          <div style="background: #FFFFFF; border: 1px solid var(--color-border); border-radius: var(--radius-xl); padding: var(--space-6); box-shadow: var(--shadow-sm);">
+            <h3 style="margin-top: 0; font-size: var(--font-size-lg); display: flex; align-items: center; gap: 8px;">
+              <span>🗄️ Dữ Liệu & Đồng Bộ Database</span>
+            </h3>
+            <p style="font-size: var(--font-size-sm); color: var(--color-text-muted); margin-bottom: var(--space-4);">
+              Nạp dữ liệu mẫu ban đầu (4 danh mục, 12 đặc sản miền Tây) hoặc sao chép mã khởi tạo SQL.
+            </p>
+
+            <div style="background: var(--color-bg); padding: var(--space-4); border-radius: var(--radius-lg); margin-bottom: var(--space-4); border: 1px solid var(--color-border);">
+              <div style="font-weight: bold; font-size: var(--font-size-sm); margin-bottom: var(--space-2);">Trạng thái các bảng trên Supabase:</div>
+              <ul style="margin: 0; padding-left: 20px; font-size: var(--font-size-xs); color: var(--color-text-muted); line-height: 1.8;" id="db-tables-list">
+                <li>Bảng <code>categories</code>: <span id="tbl-cat-status">Đang tải...</span></li>
+                <li>Bảng <code>products</code>: <span id="tbl-prod-status">Đang tải...</span></li>
+                <li>Bảng <code>orders</code>: <span id="tbl-order-status">Đang tải...</span></li>
+                <li>Bảng <code>profiles</code>: <span id="tbl-prof-status">Đang tải...</span></li>
+              </ul>
+            </div>
+
+            <div style="display: flex; flex-direction: column; gap: var(--space-3);">
+              <button type="button" class="btn btn-primary btn-block" id="btn-copy-fix-rls" style="background: #2563EB; border-color: #2563EB;">
+                ⚡ Sao Chép Mã Mở Quyền Admin (fix-rls-admin.sql)
+              </button>
+
+              <button type="button" class="btn btn-secondary btn-block" id="btn-sync-data">
+                🐟 Đồng Bộ 12 Đặc Sản Mẫu Lên Supabase
+              </button>
+
+              <button type="button" class="btn btn-outline btn-block" id="btn-copy-sql">
+                📋 Sao Chép Toàn Bộ Mã SQL (schema.sql)
+              </button>
+            </div>
+
+            <div style="margin-top: var(--space-4); font-size: var(--font-size-xs); color: var(--color-text-muted); line-height: 1.5;">
+              📌 <em>Lưu ý:</em> Để kích hoạt đầy đủ RLS Policies và hàm RPC tính giá tự động phía database, hãy dán nội dung <code>schema.sql</code> vào <a href="https://supabase.com/dashboard/project/jgdigejbpadlbqocueiz" target="_blank" style="color: var(--color-primary); text-decoration: underline;">Supabase SQL Editor</a> và bấm Run.
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <script type="module" src="../assets/js/admin/admin-supabase.js"></script>
+</body>
+</html>

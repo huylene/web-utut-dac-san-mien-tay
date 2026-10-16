@@ -1,0 +1,346 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Út Út — Đặc Sản Miền Tây Chuẩn Vị | utut.vn</title>
+  <meta name="description" content="Thương hiệu đặc sản miền Tây Út Út — Khô cá lóc đồng, bánh pía Sóc Trăng, kẹo dừa Bến Tre, mật ong hoa nhãn nguyên chất thơm ngon, đậm đà tình quê." />
+  <link rel="icon" type="image/png" href="assets/images/logo-utut.png" />
+  
+  <!-- CSS Design System -->
+  <link rel="stylesheet" href="assets/css/tokens.css" />
+  <link rel="stylesheet" href="assets/css/global.css" />
+  <link rel="stylesheet" href="assets/css/components.css" />
+  <link rel="stylesheet" href="assets/css/pages.css" />
+</head>
+<body>
+
+  <!-- Header -->
+  <header class="site-header">
+    <div class="container header-container">
+      <a href="index.html" class="brand-link" aria-label="Trang chủ Út Út">
+        <img src="assets/images/logo-utut.png" alt="Út Út — Đặc sản miền Tây" class="brand-logo" />
+      </a>
+
+      <nav aria-label="Menu chính">
+        <ul class="nav-menu">
+          <li><a href="index.html" class="nav-link active">Trang chủ</a></li>
+          <li><a href="about.html" class="nav-link">Về Út Út</a></li>
+          <li><a href="products.html" class="nav-link">Đặc sản</a></li>
+          <li><a href="track-order.html" class="nav-link">Tra cứu đơn</a></li>
+        </ul>
+      </nav>
+
+      <div class="header-actions">
+        <a href="cart.html" class="cart-btn" aria-label="Xem giỏ hàng">
+          🛒
+          <span class="cart-badge" style="display: none;">0</span>
+        </a>
+        <button type="button" class="mobile-toggle" aria-label="Mở menu di động">
+          ☰
+        </button>
+      </div>
+    </div>
+  </header>
+
+  <main>
+    <!-- Hero Section -->
+    <section class="hero-section">
+      <div class="container hero-grid">
+        <div class="hero-content">
+          <div class="hero-tagline">
+            🌾 Vị ngon sông nước miền phù sa
+          </div>
+          <h1 class="hero-title">
+            Đặc Sản Miền Tây Chuẩn Vị Gia Truyền Nhà <span>Út Út</span>
+          </h1>
+          <p class="hero-desc">
+            Từ từng mẻ khô cá lóc đồng phơi đủ 3 nắng, bánh pía sầu riêng tươi trứng muối bùi béo đến giọt mật ong hoa nhãn nguyên chất ngọt lành. Gửi gắm trọn vẹn hương vị quê nhà đến bàn ăn gia đình bạn.
+          </p>
+          <div class="hero-cta-group">
+            <a href="products.html" class="btn btn-primary btn-lg">
+              🛒 Khám phá đặc sản ngay
+            </a>
+            <a href="about.html" class="btn btn-outline btn-lg">
+              Câu chuyện nhà Út
+            </a>
+          </div>
+          <div class="hero-features">
+            <div class="hero-feature-item">
+              <span class="hero-feature-icon">✓</span> 100% Nguyên liệu thật
+            </div>
+            <div class="hero-feature-item">
+              <span class="hero-feature-icon">✓</span> Phơi đủ nắng chuẩn vị
+            </div>
+            <div class="hero-feature-item">
+              <span class="hero-feature-icon">✓</span> Giao hàng toàn quốc
+            </div>
+          </div>
+        </div>
+        <div class="hero-media">
+          <img 
+            src="assets/images/hero-mien-tay.jpg" 
+            alt="Đặc sản khô cá lóc đồng miền Tây phơi nia tre chuẩn vị nhà Út" 
+            class="hero-image"
+          />
+        </div>
+      </div>
+    </section>
+
+    <!-- Danh mục nổi bật -->
+    <section class="section">
+      <div class="container">
+        <div class="section-title-wrap">
+          <span class="section-tag">Thức quà miền Tây</span>
+          <h2 class="section-title">Danh Mục Đặc Sản Chọn Lọc</h2>
+          <p class="section-desc">Mỗi món ngon đều được tuyển chọn kỹ càng từ các làng nghề truyền thống trứ danh miền Tây Nam Bộ.</p>
+        </div>
+
+        <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: var(--space-4);">
+          <a href="products.html?category=kho-dac-san" style="background: #FFFFFF; border: 1px solid var(--color-border); border-radius: var(--radius-lg); padding: var(--space-5); text-align: center; text-decoration: none; color: var(--color-text-main); transition: transform 0.2s;" onmouseover="this.style.transform='translateY(-4px)'" onmouseout="this.style.transform='none'">
+            <div style="font-size: 2.5rem; margin-bottom: 8px;">🐟</div>
+            <h3 style="font-size: var(--font-size-lg); margin-bottom: 4px;">Khô Cá Đặc Sản</h3>
+            <p style="font-size: var(--font-size-xs); color: var(--color-text-muted); margin: 0;">Khô cá lóc, khô sặc bổi phơi 3 nắng</p>
+          </a>
+
+          <a href="products.html?category=banh-keo-truyen-thong" style="background: #FFFFFF; border: 1px solid var(--color-border); border-radius: var(--radius-lg); padding: var(--space-5); text-align: center; text-decoration: none; color: var(--color-text-main); transition: transform 0.2s;" onmouseover="this.style.transform='translateY(-4px)'" onmouseout="this.style.transform='none'">
+            <div style="font-size: 2.5rem; margin-bottom: 8px;">🥮</div>
+            <h3 style="font-size: var(--font-size-lg); margin-bottom: 4px;">Bánh Kẹo Làng Nghề</h3>
+            <p style="font-size: var(--font-size-xs); color: var(--color-text-muted); margin: 0;">Bánh pía Sóc Trăng, kẹo dừa Bến Tre</p>
+          </a>
+
+          <a href="products.html?category=mat-ong-nong-san" style="background: #FFFFFF; border: 1px solid var(--color-border); border-radius: var(--radius-lg); padding: var(--space-5); text-align: center; text-decoration: none; color: var(--color-text-main); transition: transform 0.2s;" onmouseover="this.style.transform='translateY(-4px)'" onmouseout="this.style.transform='none'">
+            <div style="font-size: 2.5rem; margin-bottom: 8px;">🍯</div>
+            <h3 style="font-size: var(--font-size-lg); margin-bottom: 4px;">Mật Ong Hoa Rừng</h3>
+            <p style="font-size: var(--font-size-xs); color: var(--color-text-muted); margin: 0;">Mật ong hoa nhãn nguyên chất sông Tiền</p>
+          </a>
+
+          <a href="products.html?category=trai-cay-say-an-vat" style="background: #FFFFFF; border: 1px solid var(--color-border); border-radius: var(--radius-lg); padding: var(--space-5); text-align: center; text-decoration: none; color: var(--color-text-main); transition: transform 0.2s;" onmouseover="this.style.transform='translateY(-4px)'" onmouseout="this.style.transform='none'">
+            <div style="font-size: 2.5rem; margin-bottom: 8px;">🍌</div>
+            <h3 style="font-size: var(--font-size-lg); margin-bottom: 4px;">Trái Cây Sấy Giòn</h3>
+            <p style="font-size: var(--font-size-xs); color: var(--color-text-muted); margin: 0;">Mít sấy, chuối sấy giòn rụm tự nhiên</p>
+          </a>
+        </div>
+      </div>
+    </section>
+
+    <!-- Sản phẩm nổi bật -->
+    <section class="section" style="background-color: #F8F5F0; border-top: 1px solid var(--color-border); border-bottom: 1px solid var(--color-border);">
+      <div class="container">
+        <div class="section-title-wrap">
+          <span class="section-tag">Được yêu thích nhất</span>
+          <h2 class="section-title">Món Ngon Bán Chạy Nhà Út</h2>
+          <p class="section-desc">Những món đặc sản đậm đà hương vị miền sông nước được quý khách gần xa tin tưởng đặt mua nhiều nhất.</p>
+        </div>
+
+        <div class="product-grid" id="home-featured-grid">
+          <!-- Render động qua JavaScript -->
+          <div class="spinner" style="grid-column: 1 / -1; margin: 40px auto;"></div>
+        </div>
+
+        <div style="text-align: center; margin-top: var(--space-8);">
+          <a href="products.html" class="btn btn-primary btn-lg">
+            Xem tất cả đặc sản →
+          </a>
+        </div>
+      </div>
+    </section>
+
+    <!-- Video YouTube Responsive (Tuân thủ 03-UI-UX-DESIGN-SYSTEM.md) -->
+    <section class="section">
+      <div class="container">
+        <div class="section-title-wrap">
+          <span class="section-tag">Trải nghiệm miền Tây</span>
+          <h2 class="section-title">Khám Phá Hương Sắc Ẩm Thực Miền Tây</h2>
+          <p class="section-desc">Cùng theo chân Út Út về với vùng sông nước Cửu Long, cảm nhận nét đẹp chân chất và các làng nghề ẩm thực truyền thống.</p>
+        </div>
+
+        <div style="max-width: 900px; margin: 0 auto;">
+          <div class="video-frame">
+            <iframe
+              src="https://www.youtube.com/embed/lr75kOuiZ-o?si=-7BKYyana0CKE7Fb"
+              title="Video giới thiệu ẩm thực miền Tây"
+              loading="lazy"
+              referrerpolicy="strict-origin-when-cross-origin"
+              allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+              allowfullscreen>
+            </iframe>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Đánh giá khách hàng thân thương -->
+    <section class="section" style="background-color: #FBF9F5; border-top: 1px solid var(--color-border);" id="home-reviews-section">
+      <div class="container">
+        <div class="section-title-wrap">
+          <span class="section-tag">Khách hàng yêu thương</span>
+          <h2 class="section-title">Cảm Nhận Từ Những Người Yêu Đặc Sản Miền Tây</h2>
+          <p class="section-desc">Những dòng cảm nhận chân tình từ các thực khách khắp mọi miền đất nước đã tin tưởng thưởng thức đặc sản nhà Út.</p>
+        </div>
+
+        <div id="home-reviews-grid" style="display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: var(--space-4);">
+          <!-- Render qua JS -->
+        </div>
+      </div>
+    </section>
+
+    <!-- Cửa hàng & Bản đồ Google Maps -->
+    <section class="section" style="background-color: #FFFFFF; border-top: 1px solid var(--color-border);">
+      <div class="container">
+        <div class="hero-grid" style="align-items: center;">
+          <div>
+            <span class="section-tag">Ghé thăm tiệm Út</span>
+            <h2 class="section-title">Điểm Dừng Chân Thân Tình Tại Cần Thơ</h2>
+            <p>Nếu có dịp ghé thăm xứ Tây Đô gạo trắng nước trong, mời bạn ghé tiệm Út Út nhâm nhi tách trà nóng, nếm thử từng miếng khô cá chiên giòn rụm và chiếc bánh pía mới ra lò.</p>
+            
+            <div style="margin-top: var(--space-4); display: flex; flex-direction: column; gap: var(--space-3); font-size: var(--font-size-sm);">
+              <div>📍 <strong>Địa chỉ:</strong> 123 Đường 30 Tháng 4, P. Hưng Lợi, Q. Ninh Kiều, TP. Cần Thơ</div>
+              <div>📞 <strong>Hotline đặt hàng:</strong> <a href="tel:08142864xx" style="color: var(--color-primary); font-weight: bold;">0814 286 4xx</a></div>
+              <div>⏰ <strong>Giờ mở cửa:</strong> 07:30 - 21:00 (Tất cả các ngày trong tuần)</div>
+            </div>
+
+            <div style="margin-top: var(--space-6);">
+              <a href="about.html" class="btn btn-outline-primary">
+                Xem thêm về thương hiệu Út Út →
+              </a>
+            </div>
+          </div>
+
+          <div>
+            <div class="map-frame">
+              <iframe 
+                src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3928.841517444318!2d105.7684266!3d10.0299337!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x31a0629f6de3edb7%3A0x527f0d0501469e61!2zTmluaCBLaeG7gXUsIEPhuqduIFRoxqE!5e0!3m2!1svi!2svn!4v1710000000000!5m2!1svi!2svn" 
+                title="Bản đồ vị trí cửa hàng Út Út tại Cần Thơ" 
+                loading="lazy" 
+                allowfullscreen>
+              </iframe>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <!-- Footer -->
+  <footer class="site-footer">
+    <div class="container">
+      <div class="footer-grid">
+        <div class="footer-brand">
+          <h4>
+            <img src="assets/images/logo-utut.png" alt="Út Út" style="height: 32px; filter: brightness(0) invert(1);" />
+            Út Út — Đặc Sản Miền Tây
+          </h4>
+          <p>Tự hào mang hương vị dân dã, thơm ngon, đậm đà tình quê hương sông nước Cửu Long đến tận tay gia đình Việt.</p>
+          <div style="font-size: var(--font-size-xs); color: #8C847D;">
+            Dữ liệu hệ thống vận hành an toàn trên Supabase PostgreSQL.
+          </div>
+        </div>
+
+        <div class="footer-col">
+          <h5>Liên Kết Nhanh</h5>
+          <ul class="footer-links">
+            <li><a href="index.html">Trang chủ</a></li>
+            <li><a href="about.html">Về Út Út</a></li>
+            <li><a href="products.html">Đặc sản miền Tây</a></li>
+            <li><a href="track-order.html">Tra cứu đơn hàng</a></li>
+          </ul>
+        </div>
+
+        <div class="footer-col">
+          <h5>Chính Sách</h5>
+          <ul class="footer-links">
+            <li><a href="about.html#shipping-policy">Chính sách giao hàng</a></li>
+            <li><a href="about.html#return-policy">Chính sách đổi trả</a></li>
+            <li><a href="about.html#privacy-policy">Bảo mật thông tin</a></li>
+            <li><a href="admin/login.html">Quản trị viên</a></li>
+          </ul>
+        </div>
+
+        <div class="footer-col">
+          <h5>Liên Hệ Cửa Hàng</h5>
+          <div class="footer-contact-item">
+            <span>📍</span> 123 Đường 30 Tháng 4, Q. Ninh Kiều, Cần Thơ
+          </div>
+          <div class="footer-contact-item">
+            <span>📞</span> <a href="tel:08142864xx">0814 286 4xx</a>
+          </div>
+          <div class="footer-contact-item">
+            <span>✉️</span> <a href="mailto:chao@utut.vn">chao@utut.vn</a>
+          </div>
+        </div>
+      </div>
+
+      <div class="footer-bottom">
+        <div>© 2026 Út Út (utut.vn) — Đặc sản miền Tây. Mọi quyền được bảo lưu.</div>
+        <div>Thiết kế chuẩn HTML5 / CSS3 / ES Modules thuần.</div>
+      </div>
+    </div>
+  </footer>
+
+  <!-- Scripts -->
+  <script type="module">
+    import { DataService } from './assets/js/supabase-client.js';
+    import { createProductCard, bindAddToCartButtons } from './assets/js/products.js';
+    import { initMobileNav, renderRatingStars, formatDate, escapeHtml } from './assets/js/ui-utils.js';
+
+    initMobileNav();
+
+    // 1. Tải sản phẩm nổi bật
+    const gridEl = document.getElementById('home-featured-grid');
+    try {
+      const products = await DataService.getProducts({ isFeatured: true });
+      if (gridEl) {
+        if (products.length === 0) {
+          gridEl.innerHTML = '<p style="text-align:center; grid-column: 1 / -1;">Đang cập nhật sản phẩm nổi bật...</p>';
+        } else {
+          gridEl.innerHTML = products.slice(0, 8).map(p => createProductCard(p)).join('');
+          bindAddToCartButtons(gridEl);
+        }
+      }
+    } catch (e) {
+      console.error(e);
+      if (gridEl) gridEl.innerHTML = '<p style="text-align:center; grid-column: 1 / -1;">Lỗi tải sản phẩm nổi bật.</p>';
+    }
+
+    // 2. Tải đánh giá khách hàng trang chủ
+    const reviewsGrid = document.getElementById('home-reviews-grid');
+    if (reviewsGrid) {
+      try {
+        const approvedRevs = await DataService.getLatestApprovedReviews(3);
+        if (approvedRevs.length > 0) {
+          reviewsGrid.innerHTML = approvedRevs.map(r => `
+            <div style="background: #FFFFFF; border: 1px solid var(--color-border); border-radius: var(--radius-lg); padding: var(--space-5); display: flex; flex-direction: column; justify-content: space-between; box-shadow: var(--shadow-sm); transition: transform 0.2s;">
+              <div>
+                <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: var(--space-3); flex-wrap: wrap; gap: 4px;">
+                  <div class="star-rating">${renderRatingStars(r.rating)}</div>
+                  <span style="font-size: var(--font-size-xs); color: var(--color-text-muted);">${formatDate(r.created_at)}</span>
+                </div>
+                <p style="font-size: var(--font-size-sm); color: var(--color-text-main); line-height: 1.6; margin-bottom: var(--space-4); font-style: italic;">
+                  "${escapeHtml(r.comment || '')}"
+                </p>
+              </div>
+              <div style="border-top: 1px solid #F0ECE1; padding-top: var(--space-3); display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 6px;">
+                <div>
+                  <strong style="color: var(--color-text-main); font-size: var(--font-size-sm);">${escapeHtml(r.display_name)}</strong>
+                  <div style="font-size: var(--font-size-xs); color: #059669;">✓ Khách hàng đã mua</div>
+                </div>
+                ${r.products?.slug ? `
+                  <a href="product.html?slug=${encodeURIComponent(r.products.slug)}" style="font-size: var(--font-size-xs); color: var(--color-primary); text-decoration: none; font-weight: 600;" title="${escapeHtml(r.products.name)}">
+                    ${escapeHtml(r.products.name.length > 22 ? r.products.name.slice(0, 20) + '...' : r.products.name)} ↗
+                  </a>
+                ` : ''}
+              </div>
+            </div>
+          `).join('');
+        } else {
+          const sec = document.getElementById('home-reviews-section');
+          if (sec) sec.style.display = 'none';
+        }
+      } catch (e) {
+        console.warn('Lỗi tải reviews trang chủ:', e);
+      }
+    }
+  </script>
+</body>
+</html>

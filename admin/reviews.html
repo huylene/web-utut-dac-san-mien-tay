@@ -1,0 +1,163 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Kiểm Duyệt Đánh Giá — Út Út Admin | utut.vn</title>
+  <link rel="icon" type="image/png" href="../assets/images/logo-utut.png" />
+  
+  <link rel="stylesheet" href="../assets/css/tokens.css" />
+  <link rel="stylesheet" href="../assets/css/global.css" />
+  <link rel="stylesheet" href="../assets/css/components.css" />
+  <link rel="stylesheet" href="../assets/css/pages.css" />
+</head>
+<body>
+
+  <div class="admin-layout">
+    <!-- Sidebar -->
+    <aside class="admin-sidebar">
+      <div class="admin-sidebar-header">
+        <a href="index.html" style="display: flex; align-items: center; gap: 10px; color: #FFFFFF;">
+          <img src="../assets/images/logo-utut.png" alt="Út Út" style="height: 36px; filter: brightness(0) invert(1);" />
+          <div>
+            <div style="font-weight: bold; font-size: 1.1rem; color: var(--color-primary);">Út Út Admin</div>
+            <div style="font-size: 0.75rem; color: #8C847D;">Đặc sản miền Tây</div>
+          </div>
+        </a>
+      </div>
+
+      <ul class="admin-nav">
+        <li class="admin-nav-item">
+          <a href="index.html" class="admin-nav-link">📊 Tổng quan (Dashboard)</a>
+        </li>
+        <li class="admin-nav-item">
+          <a href="orders.html" class="admin-nav-link">📦 Quản lý đơn hàng</a>
+        </li>
+        <li class="admin-nav-item">
+          <a href="products.html" class="admin-nav-link">🐟 Quản lý đặc sản</a>
+        </li>
+        <li class="admin-nav-item">
+          <a href="reviews.html" class="admin-nav-link active">✍️ Duyệt đánh giá</a>
+        </li>
+        <li class="admin-nav-item">
+          <a href="supabase.html" class="admin-nav-link">⚡ Quản lý Supabase & Tài khoản</a>
+        </li>
+        <li class="admin-nav-item" style="margin-top: var(--space-6); border-top: 1px solid rgba(255,255,255,0.1); padding-top: var(--space-4);">
+          <a href="../index.html" target="_blank" class="admin-nav-link">🌐 Xem Website khách hàng</a>
+        </li>
+      </ul>
+
+      <div class="admin-sidebar-footer">
+        <div>Hệ thống vận hành Supabase PostgreSQL</div>
+      </div>
+    </aside>
+
+    <!-- Main Content -->
+    <div class="admin-main">
+      <header class="admin-header">
+        <h2 style="font-size: var(--font-size-lg); margin: 0;">Kiểm Duyệt Đánh Giá Khách Hàng</h2>
+        <div style="display: flex; align-items: center; gap: var(--space-4);">
+          <span style="font-size: var(--font-size-sm); color: var(--color-text-muted);" id="admin-user-email">admin@utut.vn</span>
+          <button type="button" class="btn btn-outline btn-sm" id="admin-logout-btn">Đăng xuất</button>
+        </div>
+      </header>
+
+      <div class="admin-content">
+        <!-- 4 KPI Thẻ Thống Kê Đánh Giá -->
+        <div class="order-kpi-grid" style="grid-template-columns: repeat(4, 1fr); margin-bottom: var(--space-5);">
+          <div class="order-kpi-card" style="border-left: 4px solid var(--color-primary);">
+            <div class="order-kpi-icon" style="color: var(--color-primary); background: #FFF7ED;">✍️</div>
+            <div class="order-kpi-info">
+              <div class="order-kpi-label">Tổng đánh giá</div>
+              <div class="order-kpi-val" id="kpi-total-revs">--</div>
+              <div class="order-kpi-sub">Cảm nhận từ khách hàng</div>
+            </div>
+          </div>
+
+          <div class="order-kpi-card" style="border-left: 4px solid #10B981; cursor: pointer;" id="card-filter-approved">
+            <div class="order-kpi-icon" style="color: #059669; background: #ECFDF5;">✅</div>
+            <div class="order-kpi-info">
+              <div class="order-kpi-label">Đang hiển thị trên web</div>
+              <div class="order-kpi-val" id="kpi-approved-revs" style="color: #059669;">--</div>
+              <div class="order-kpi-sub">Đã duyệt công khai</div>
+            </div>
+          </div>
+
+          <div class="order-kpi-card" style="border-left: 4px solid #F59E0B; cursor: pointer;" id="card-filter-pending">
+            <div class="order-kpi-icon" style="color: #D97706; background: #FEF3C7;">⏳</div>
+            <div class="order-kpi-info">
+              <div class="order-kpi-label">Chờ kiểm duyệt</div>
+              <div class="order-kpi-val" id="kpi-pending-revs" style="color: #D97706;">--</div>
+              <div class="order-kpi-sub">Đánh giá mới gửi</div>
+            </div>
+          </div>
+
+          <div class="order-kpi-card" style="border-left: 4px solid #EF4444; cursor: pointer;" id="card-filter-rejected">
+            <div class="order-kpi-icon" style="color: #DC2626; background: #FEF2F2;">👁️</div>
+            <div class="order-kpi-info">
+              <div class="order-kpi-label">Đang ẩn khỏi web</div>
+              <div class="order-kpi-val" id="kpi-rejected-revs" style="color: #DC2626;">--</div>
+              <div class="order-kpi-sub">Đã từ chối hoặc ẩn</div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Bộ lọc & Thao tác tìm kiếm -->
+        <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: var(--space-4); flex-wrap: wrap; gap: var(--space-3);">
+          <div style="display: flex; gap: var(--space-2); flex: 1; min-width: 300px; flex-wrap: wrap; align-items: center;">
+            <input 
+              type="text" 
+              id="review-search" 
+              class="form-control" 
+              placeholder="🔍 Tìm theo tên khách, nội dung, món đặc sản..." 
+              style="max-width: 320px;"
+            />
+            <select id="review-status-filter" class="form-control" style="width: auto; min-width: 190px;">
+              <option value="">Tất cả trạng thái</option>
+              <option value="approved">✅ Đang hiển thị (Đã duyệt)</option>
+              <option value="pending">⏳ Chờ kiểm duyệt</option>
+              <option value="rejected">👁️ Đang ẩn (Từ chối)</option>
+            </select>
+          </div>
+
+          <div style="display: flex; align-items: center; gap: var(--space-2);">
+            <span style="font-size: var(--font-size-xs); color: var(--color-text-muted);" id="review-count-text">Đang tải...</span>
+            <button type="button" class="btn btn-outline btn-sm" id="review-refresh-btn" title="Làm mới">
+              🔄 Tải lại
+            </button>
+          </div>
+        </div>
+
+        <!-- Bảng danh sách đánh giá -->
+        <div class="data-table-wrap">
+          <table class="data-table">
+            <thead>
+              <tr>
+                <th style="min-width: 200px;">Đặc sản đánh giá</th>
+                <th style="min-width: 140px;">Người gửi</th>
+                <th style="min-width: 110px;">Số sao</th>
+                <th style="min-width: 280px;">Nội dung cảm nhận</th>
+                <th style="min-width: 130px;">Trạng thái</th>
+                <th style="min-width: 170px; text-align: center;">Hành động</th>
+              </tr>
+            </thead>
+            <tbody id="reviews-tbody">
+              <tr><td colspan="6" style="text-align:center; padding: 24px;"><div class="spinner"></div></td></tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <script type="module">
+    import { checkAdminAuth } from '../assets/js/admin/admin-auth.js';
+    import { initAdminReviewsPage } from '../assets/js/admin/admin-reviews.js';
+
+    const session = await checkAdminAuth();
+    if (session) {
+      initAdminReviewsPage();
+    }
+  </script>
+</body>
+</html>

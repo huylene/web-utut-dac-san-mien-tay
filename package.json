@@ -1,0 +1,19 @@
+{
+  "name": "web-utut-mien-tay",
+  "version": "1.0.0",
+  "description": "Website giới thiệu và đặt mua đặc sản miền Tây Út Út (utut.vn)",
+  "scripts": {
+    "start": "node server.js",
+    "dev": "node server.js",
+    "test:logic": "node -e \"import('./assets/js/supabase-client.js').then(async ({ DataService }) => { const p = await DataService.getProducts(); console.log('Products count:', p.length); })\" --input-type=module"
+  },
+  "keywords": [
+    "dac-san-mien-tay",
+    "ut-ut",
+    "supabase",
+    "vietqr",
+    "ecommerce"
+  ],
+  "author": "Út Út Team",
+  "license": "MIT"
+}
